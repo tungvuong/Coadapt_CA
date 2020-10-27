@@ -18,4 +18,4 @@ const CA = {
   }
 }
 
-export default User; 
+export default CA; 
