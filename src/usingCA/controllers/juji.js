@@ -6,7 +6,7 @@ const CA = {
    * @returns {object}
    */
   async talk(req, res) {
-    if (!req.body.code || !req.body.content || !req.body.participantID) {
+    if (!req.body.code || !req.body.content || !req.body.participantID || !req.body.responseTime) {
       return res.status(400).send({'message': 'Some values are missing'});
     }
 
