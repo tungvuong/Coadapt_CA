@@ -19,9 +19,6 @@ app.get('/', (req, res) => {
 
 app.all('/ca',CA.talk);
 
-//app.listen(443)
-//console.log('app running on port ', 443);
-
 var httpsServer = https.createServer(credentials, app);
 
 httpsServer.listen(443);
