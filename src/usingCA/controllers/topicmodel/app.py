@@ -48,6 +48,7 @@ class DataLoader:
     self.corpus = corpora.MmCorpus(dir+'/corpus1.mm')
     self.lda_model = gensim.models.ldamodel.LdaModel.load(dir+'/lda1.model')
     self.num_topic = 100
+    self.max_num_recs = 50
     with open(dir+"/recommendations.pickle", "rb") as i_file:
       self.recs = pickle.load(i_file)
 
@@ -55,9 +56,10 @@ def main():
   # load data
   dir = sys.argv[0].replace('/app.py','')
   data = DataLoader(dir)
-  id2word, corpus, lda_model, recs, num_topic = data.id2word, data.corpus, data.lda_model, data.recs, data.num_topic
+  id2word, corpus, lda_model, recs, num_topic, max_num_recs = data.id2word, data.corpus, data.lda_model, data.recs, data.num_topic, data.max_num_recs
   # user input
   u_input = sys.argv[1]
+  num_recs = int(sys.argv[2]) if int(sys.argv[2])<=max_num_recs else max_num_recs
   preprocessed_input = lemmatization(remove_stopwords(list(sent_to_words([u_input]))))
   ans = [id2word.doc2bow(text) for text in preprocessed_input]
   # transform user input to a topic distribution
@@ -73,7 +75,7 @@ def main():
   response = sorted(response, key=takeSecond, reverse=True)
   response = flatRecom(response)
   # output ranked recommendations (dict)
-  print({r[0]: r[1] for r in response[:5]})
+  print({r[0]: r[1] for r in response[:num_recs]})
 
 if __name__ == "__main__":
   main()
