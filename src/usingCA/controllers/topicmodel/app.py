@@ -41,6 +41,12 @@ def flatRecom(seq):
     seen_bl = set()
     seen_add_bl = seen_bl.add
     return [x for x in seq if not (x[0] in seen_bl or seen_add_bl(x[0]))]
+def getNumRecs(max_num_recs):
+    try:
+      num_recs = int(sys.argv[2]) if int(sys.argv[2])<=max_num_recs else max_num_recs
+      return num_recs
+    except:
+      return 5
 
 class DataLoader:
   def __init__(self, dir):
@@ -59,7 +65,7 @@ def main():
   id2word, corpus, lda_model, recs, num_topic, max_num_recs = data.id2word, data.corpus, data.lda_model, data.recs, data.num_topic, data.max_num_recs
   # user input
   u_input = sys.argv[1]
-  num_recs = int(sys.argv[2]) if int(sys.argv[2])<=max_num_recs else max_num_recs
+  num_recs = getNumRecs(max_num_recs)
   preprocessed_input = lemmatization(remove_stopwords(list(sent_to_words([u_input]))))
   ans = [id2word.doc2bow(text) for text in preprocessed_input]
   # transform user input to a topic distribution
