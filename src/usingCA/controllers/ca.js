@@ -20,7 +20,7 @@ const CA = {
       var process = spawn('python3', ['./src/usingCA/controllers/topicmodel/app.py', req.body.content]);
       process.stdout.on('data', function (data) {
             data = data.toString('utf8').replace(/(\r\n|\n|\r)/gm,"").replace(/["']+/g,'"');
-            return res.status(201).send({ "code": "questionCode", "topics": JSON.parse(data) });
+            return res.status(201).send({ "code": "questionCode", "change_programs": JSON.parse(data) });
         });
 
     } catch(error) {
