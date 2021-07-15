@@ -10,7 +10,7 @@ npm install
 npm run dev-start
 
 
-Sample Input:
+Sample Input to the API:
 
 
 {
